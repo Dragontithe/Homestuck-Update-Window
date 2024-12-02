@@ -1,90 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Update - Game State</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #1c1c1c;
-            border-radius: 10px;
-        }
-        h1 {
-            color: #ff6347;
-            text-align: center;
-        }
-        .error-code {
-            background-color: #333;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-        .option-list {
-            list-style: none;
-            padding: 0;
-        }
-        .option-item {
-            background-color: #444;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .option-item:hover {
-            background-color: #555;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Update Form</title>
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+  <script>
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDZKhF8u-xMjkdtRDVaaVUDsaUF5b_i9xE",
+    authDomain: "homestuck-game-u.firebaseapp.com",
+    projectId: "homestuck-game-u",
+    storageBucket: "homestuck-game-u.firebasestorage.app",
+    messagingSenderId: "398176356966",
+    appId: "1:398176356966:web:c207fac2cdfd311d67fba7",
+    measurementId: "G-BRLBTEYVSD"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Function to handle form submission
+    function submitSelections() {
+      // Get the values from the form
+      const AB0 = document.querySelector('input[name="AB0"]:checked').value;
+      const 2JKate = document.querySelector('input[name="2JKate"]:checked').value;
+      const B0CK2A = document.querySelector('input[name="B0CK2A"]:checked').value;
+
+      // Prepare the data to be sent to Firebase
+      const userSelections = {
+        AB0: AB0,
+        2JKate: 2JKate,
+        B0CK2A: B0CK2A
+      };
+
+      // Save the selections to Firebase Realtime Database
+      db.ref('selections').push(userSelections);
+
+      // Hide the form and show the "maintenance mode" message
+      document.getElementById('formContainer').style.display = 'none';
+      document.getElementById('maintenance').style.display = 'block';
+    }
+
+    // Function to show the error window (for errors that need attention)
+    function showErrorWindow() {
+      document.getElementById('errorWindow').style.display = 'block';
+    }
+
+    // Function to close the error window
+    function closeErrorWindow() {
+      document.getElementById('errorWindow').style.display = 'none';
+    }
+  </script>
+
+  <style>
+    /* Error Window Styling */
+    #errorWindow {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
+    }
+    #errorWindow h2 {
+      margin-top: 0;
+    }
+    #errorWindow button {
+      background-color: #ff5c5c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    #errorWindow button:hover {
+      background-color: #ff0000;
+    }
+
+    /* Maintenance Mode Styling */
+    #maintenance {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Warning: System Update Required</h1>
-        <p><strong>Input needed by client.</strong> Some changes may be necessary to update the game state and repair the current errors. Please review each <strong>ERROR</strong> and select an option. The most selected option will be used as the input.</p>
 
-        <div class="error-code">
-            <h2>Error Code AB0</h2>
-            <p>Should the game be restarted to reset the pacing and allow for those who wish to leave to do so?</p>
-            <ul class="option-list">
-                <li class="option-item">✅ Yes</li>
-                <li class="option-item">❌ No</li>
-            </ul>
-        </div>
+  <!-- Error Window (for maintenance or issues) -->
+  <div id="errorWindow">
+    <h2>Error Detected</h2>
+    <p>There seems to be an issue with the current game state. We need to address it.</p>
+    <button onclick="closeErrorWindow()">Close</button>
+  </div>
 
-        <div class="error-code">
-            <h2>Error Code 2JKate</h2>
-            <p>Should the Space and Time player be forced to make the game canon-compliant, or shall we get creative?</p>
-            <ul class="option-list">
-                <li class="option-item">🌀 Creative</li>
-                <li class="option-item">✅ Canon</li>
-            </ul>
-        </div>
+  <!-- Form Container (Visible initially) -->
+  <div id="formContainer">
+    <h2>Game Update Form</h2>
+    <form onsubmit="event.preventDefault(); submitSelections();">
+      <h3>Error Code AB0:</h3>
+      <label><input type="radio" name="AB0" value="Yes" required> Yes</label>
+      <label><input type="radio" name="AB0" value="No" required> No</label>
 
-        <div class="error-code">
-            <h2>Error Code B0CK2A</h2>
-            <p>If we don’t restart, do we want the changes to be included in the update automatically or with game precedent for the change?</p>
-            <ul class="option-list">
-                <li class="option-item">✅ Automatically Add</li>
-                <li class="option-item">❌ Precedent</li>
-            </ul>
-        </div>
+      <h3>Error Code 2JKate:</h3>
+      <label><input type="radio" name="2JKate" value="Canon" required> Canon</label>
+      <label><input type="radio" name="2JKate" value="Creative" required> Creative</label>
 
-        <div class="footer">
-            <p>System update initiated. Please wait for further instructions.</p>
-        </div>
-    </div>
+      <h3>Error Code B0CK2A:</h3>
+      <label><input type="radio" name="B0CK2A" value="Yes" required> Yes</label>
+      <label><input type="radio" name="B0CK2A" value="No" required> No</label>
+
+      <br>
+      <button type="submit">Submit Selections</button>
+    </form>
+    <button onclick="showErrorWindow()">Show Error Window</button> <!-- Test the error window -->
+  </div>
+
+  <!-- Maintenance Mode (Visible after submission) -->
+  <div id="maintenance" style="display:none;">
+    <h2>Maintenance Mode</h2>
+    <p>The form is now closed. Thank you for your input!</p>
+  </div>
+
 </body>
 </html>
