@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Update - Game State</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #ff6347;
+            text-align: center;
+        }
+        .error-code {
+            background-color: #333;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .option-list {
+            list-style: none;
+            padding: 0;
+        }
+        .option-item {
+            background-color: #444;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .option-item:hover {
+            background-color: #555;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Warning: System Update Required</h1>
+        <p><strong>Input needed by client.</strong> Some changes may be necessary to update the game state and repair the current errors. Please review each <strong>ERROR</strong> and select an option. The most selected option will be used as the input.</p>
+
+        <div class="error-code">
+            <h2>Error Code AB0</h2>
+            <p>Should the game be restarted to reset the pacing and allow for those who wish to leave to do so?</p>
+            <ul class="option-list">
+                <li class="option-item">✅ Yes</li>
+                <li class="option-item">❌ No</li>
+            </ul>
+        </div>
+
+        <div class="error-code">
+            <h2>Error Code 2JKate</h2>
+            <p>Should the Space and Time player be forced to make the game canon-compliant, or shall we get creative?</p>
+            <ul class="option-list">
+                <li class="option-item">🌀 Creative</li>
+                <li class="option-item">✅ Canon</li>
+            </ul>
+        </div>
+
+        <div class="error-code">
+            <h2>Error Code B0CK2A</h2>
+            <p>If we don’t restart, do we want the changes to be included in the update automatically or with game precedent for the change?</p>
+            <ul class="option-list">
+                <li class="option-item">✅ Automatically Add</li>
+                <li class="option-item">❌ Precedent</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>System update initiated. Please wait for further instructions.</p>
+        </div>
+    </div>
+</body>
+</html>
